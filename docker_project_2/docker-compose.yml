@@ -1,0 +1,29 @@
+version: "3.7"
+
+volumes:
+  portainer_data:
+
+networks:
+  workspace_network:
+    external:
+      name: workspace_network
+
+services:
+  sails_dev:
+    container_name: ${PREFIX}sails${SUFFIX}
+    hostname: ${PREFIX}sails${SUFFIX}
+    build:
+      context: .
+      dockerfile: ./sails/Dockerfile
+      args:
+        sails_version: ${SAILS_VERSION}
+        node_version: ${NODE_VERSION}
+    networks:
+      workspace_network:
+        ipv4_address: ${IP_SAILS}
+    ports:
+      - "${SAILS_PORT}:1337"
+    environment:
+      - NODE_ENV=local
+    volumes:
+      - /home/${MYUSER}/source_code/${PROJECT}:/server

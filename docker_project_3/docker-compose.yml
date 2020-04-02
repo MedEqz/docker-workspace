@@ -1,0 +1,48 @@
+version: "3.7"
+
+volumes:
+  portainer_data:
+
+networks:
+  workspace_network:
+    external:
+      name: docker-si_workspace_network
+
+services:
+  nginx:
+    container_name: ${PREFIX}nginx${SUFFIX}
+    hostname: ${PREFIX}nginx${SUFFIX}
+    ports:
+      - "${HTTP}:80"
+      - "${HTTPS}:443"
+      - "${SOCKET}:${SOCKET}"
+    networks:
+      workspace_network:
+        ipv4_address: ${IP_NGINX}
+    build:
+      context: .
+      dockerfile: ./nginx/Dockerfile
+      args:
+        - MYUSER=${MYUSER}
+    volumes:
+      - /home/${MYUSER}/${PROJECT}:/var/www
+      - ../${VOLUME}/${PROJECT}/nginx:/var/log/nginx
+
+  sails_dev:
+    container_name: ${PREFIX}sails${SUFFIX}
+    hostname: ${PREFIX}sails${SUFFIX}
+    build:
+      context: .
+      dockerfile: ./sails/Dockerfile
+      args:
+        sails_version: ${SAILS_VERSION}
+        node_version: ${NODE_VERSION}
+    networks:
+      workspace_network:
+        ipv4_address: ${IP_SAILS}
+    ports:
+      - "${SAILS_PORT}:1337"
+    environment:
+      - NODE_ENV=dev
+    volumes:
+      - /home/${MYUSER}/www/${PROJECT}:/server
