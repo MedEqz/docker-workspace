@@ -3,7 +3,7 @@ ARG ubuntu_version
 
 FROM ubuntu:$ubuntu_version
 
-ARG user
+ARG myuser
 ARG php_version
 ARG node_version
 ARG nginx_version
@@ -13,7 +13,8 @@ RUN apt-get -y update
 
 # Prerequis pour php
 RUN apt-get -y install software-properties-common
-RUN apt-get -y install python-software-properties
+# python-software-properties Does not work with php 7.4 and or ubuntu 18.04
+# RUN apt-get -y install python-software-properties
 RUN add-apt-repository -y ppa:git-core/ppa
 RUN LC_ALL=C.UTF-8 add-apt-repository -y ppa:ondrej/php
 
@@ -31,7 +32,8 @@ RUN apt-get -y install \
     php$PHP_VERSION-mbstring \
     php$PHP_VERSION-gd \
     php$PHP_VERSION-zip \
-    php$PHP_VERSION-dom
+    # does not work with php 7.4 php$PHP_VERSION-dom
+    php$PHP_VERSION-xml
 
 # Install PHP libs for artisan migrate & seed
 RUN apt-get -y install \
@@ -52,8 +54,8 @@ RUN apt-get -y install nginx
 # Install nano
 RUN apt-get -y install nano
 
-# Add user
-RUN useradd -G www-data $user
+# Add myuser
+RUN useradd -G www-data $myuser
 
 # Copy Nginx config file
 COPY nginx_container/default.conf /etc/nginx/sites-available/default
