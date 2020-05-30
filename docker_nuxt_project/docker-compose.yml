@@ -1,0 +1,28 @@
+version: "3.7"
+
+volumes:
+  portainer_data:
+
+networks:
+  workspace_network:
+    external:
+      name: docker-workspace_workspace_network
+
+services:
+  nuxt_dev:
+    container_name: ${PREFIX}nuxt${SUFFIX}
+    hostname: ${PREFIX}nuxt${SUFFIX}
+    build:
+      context: .
+      dockerfile: ./Dockerfile
+      args:
+        node_version: ${NODE_VERSION}
+    networks:
+      workspace_network:
+        ipv4_address: ${IP_NUXT}
+    ports:
+      - "${NUXT_PORT}:3000"
+    environment:
+      - NODE_ENV=local
+    volumes:
+      - /home/${MYUSER}/source_code/${PROJECT}:/server/${PROJECT}
