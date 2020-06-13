@@ -1,17 +1,21 @@
-docker-workspace
+# docker-workspace
 
+Espace de travail VM + Docker multi environnement
 
-
-Virtual machine :
+## Virtual machine :
 
 18.04 server
 open ssh
 
 https://graspingtech.com/ubuntu-server-18.04-static-ip/
 
-commenter /etc/netplan/50-cloud-init.yaml
-creer /etc/netplan/01-netcfg.yaml
-=>
+1 - commenter /etc/netplan/50-cloud-init.yaml
+2 - creer /etc/netplan/01-netcfg.yaml
+
+```bash
+pip install foobar
+
+
 # This file is generated from information provided by the datasource.  Changes
 # to it will not persist across an instance reboot.  To disable cloud-init's
 # network configuration capabilities, write a file
@@ -26,19 +30,20 @@ network:
             addresses: [192.168.56.103/24]
     version: 2
 
-sudo netplan apply
+```
 
-=> Windows
+3 - sudo netplan apply
 
-installer ubuntu bash 18.04
-apt upgrade
+## Windows
 
-Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
+1 - installer ubuntu bash 18.04
+2 - apt upgrade
 
+3 - Enable-WindowsOptionalFeature -Online -FeatureName Microsoft-Windows-Subsystem-Linux
 
 https://linuxize.com/post/using-the-ssh-config-file/
 
 
- ssh medeqz@192.168.56.103
+ssh medeqz@192.168.56.103
 
- sudo systemctl daemon-reload
+sudo systemctl daemon-reload
