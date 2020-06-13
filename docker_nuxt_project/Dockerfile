@@ -3,8 +3,8 @@ ARG node_version
 FROM node:$node_version
 
 RUN apt-get update && apt-get install -y 
-RUN apt-get -y install git
 
+#RUN apt-get -y install git
 #RUN npm i -g create-nuxt-app
 #RUN npx create-nuxt-app nuxt002
 
