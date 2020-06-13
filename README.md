@@ -13,8 +13,6 @@ https://graspingtech.com/ubuntu-server-18.04-static-ip/
 2 - creer /etc/netplan/01-netcfg.yaml
 
 ```bash
-pip install foobar
-
 
 # This file is generated from information provided by the datasource.  Changes
 # to it will not persist across an instance reboot.  To disable cloud-init's
