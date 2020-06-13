@@ -1,0 +1,51 @@
+{
+    "deploy.reloaded": {
+        "packages": [{
+            "name": "docker-workspace",
+            "deployOnSave": true,
+            "description": "Package version 2.3.4",
+            "dir": "C:/dev/docker-workspace",
+            "exclude": [
+                "up.sh",
+                "go.sh",
+                ".idea",
+                ".vscode",
+                ".tmp",
+                "vendor/**",
+                "node_modules/**",
+                "composer.lock",
+                "package-lock.json",
+                "\\.sublime-(project|workspace)",
+                "sftp-config(-alt\\d?)?\\.json",
+                "sftp-settings\\.json",
+                "/venv/",
+                "\\.svn/",
+                "\\.sh/",
+                "\\.hg/",
+                "\\.git/",
+                "\\.bzr",
+                "_darcs",
+                "CVS",
+                "\\.DS_Store",
+                "Thumbs\\.db",
+                "desktop\\.ini"
+            ],
+            "targets": [
+                "docker-workspace"
+            ],
+            "removeOnChange": [
+                "docker-workspace"
+            ]
+        }],
+        "targets": [{
+            "type": "sftp",
+            "name": "docker-workspace",
+            "description": "A SFTP folder",
+            "host": "192.168.56.103",
+            "port": 22,
+            "user": "medeqz",
+            "password": "manwejtt1710",
+            "dir": "/home/medeqz/docker-workspace"
+        }]
+    }
+}
